@@ -1,0 +1,9 @@
+image: "/dungeon/assets/scut.png"
+tile_width: 8
+tile_height: 8
+tile_margin: 0
+tile_spacing: 0
+collision: ""
+material_tag: "tile"
+extrude_borders: 1
+inner_padding: 0

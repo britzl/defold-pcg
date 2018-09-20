@@ -1,0 +1,31 @@
+[bootstrap]
+main_collection = /dungeon/dungeon.collectionc
+render = /orthographic/render/orthographic.renderc
+
+[script]
+shared_state = 1
+
+[project]
+title = PCG
+dependencies = https://github.com/britzl/defold-orthographic/archive/2.5.0.zip
+
+[profiler]
+track_cpu = 1
+
+[android]
+package = com.britzl.defold.pcg
+
+[display]
+width = 1136
+height = 640
+
+[ios]
+bundle_identifier = com.britzl.defold.pcg
+
+[graphics]
+default_texture_min_filter = nearest
+default_texture_mag_filter = nearest
+
+[osx]
+bundle_identifier = com.britzl.defold.pcg
+

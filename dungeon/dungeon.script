@@ -1,0 +1,60 @@
+local function fill(tile, x, y, w, h)
+	for xi = x, x + w - 1 do
+		for yi = y, y + h - 1 do
+			tilemap.set_tile("#dungeon", "level", xi, yi, tile)
+		end
+	end
+end
+
+local DOOR = 40
+local FLOOR = 16
+local WALL = 2
+
+local divide_horisontal
+local divide_vertical
+divide_horisontal = function(x, y, w, h)
+	local ratio = math.random(2, 8) / 10
+	local w1 = math.floor(w * ratio)
+	local w2 = w - 1 - w1
+	if w1 >= 2 and w2 >= 2 then
+		fill(FLOOR, x, y, w1, h) -- left area
+		fill(WALL, x + w1, y, 1, h) -- separator wall
+		fill(FLOOR, x + w1 + 1, y, w2, h) -- right area
+
+		divide_vertical(x, y, w1, h)
+		divide_vertical(x + w1 + 1, y, w2, h)
+		
+		local dx = x + w1
+		local dy = math.random(y, y + h - 1)
+		fill(DOOR, dx, dy, 1, 1) -- door
+		fill(FLOOR, dx - 1, dy, 1, 1) -- floor next to door
+		fill(FLOOR, dx + 1, dy, 1, 1) -- floor next to door
+	end
+end
+
+divide_vertical = function(x, y, w, h)
+	local ratio = math.random(2, 8) / 10
+	local h1 = math.floor(h * ratio)
+	local h2 = h - 1 - h1
+	if h1 >= 2 and h2 >= 2 then
+		fill(FLOOR, x, y, w, h1) -- bottom area
+		fill(WALL, x, y + h1, w, 1) -- separator wall
+		fill(FLOOR, x, y + h1 + 1, w, h2) -- top area
+		
+		divide_horisontal(x, y, w, h1)
+		divide_horisontal(x, y + h1 + 1, w, h2)
+
+		local dx = math.random(x, x + w - 1)
+		local dy = y + h1
+		fill(DOOR, dx, dy, 1, 1) -- door
+		fill(FLOOR, dx, dy - 1, 1, 1) -- floor next to door
+		fill(FLOOR, dx, dy + 1, 1, 1) -- floor next to door
+	end
+end
+
+function init(self)
+	math.randomseed(os.time()) math.random()
+	local x,y,w,h = tilemap.get_bounds("#dungeon")
+	fill(WALL, x, y, w, h)
+	divide_horisontal(x + 1, y + 1, w - 2, h - 2)
+end
