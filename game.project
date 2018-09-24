@@ -1,5 +1,5 @@
 [bootstrap]
-main_collection = /dungeon/dungeon.collectionc
+main_collection = /randomwalk/randomwalk.collectionc
 render = /orthographic/render/orthographic.renderc
 
 [script]

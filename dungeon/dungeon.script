@@ -1,9 +1,7 @@
+local pcg = require "pcg.pcg"
+
 local function fill(tile, x, y, w, h)
-	for xi = x, x + w - 1 do
-		for yi = y, y + h - 1 do
-			tilemap.set_tile("#dungeon", "level", xi, yi, tile)
-		end
-	end
+	pcg.fill("#dungeon", "level", tile, x, y, w, h)
 end
 
 local DOOR = 40
@@ -52,9 +50,25 @@ divide_vertical = function(x, y, w, h)
 	end
 end
 
+
 function init(self)
 	math.randomseed(os.time()) math.random()
-	local x,y,w,h = tilemap.get_bounds("#dungeon")
-	fill(WALL, x, y, w, h)
-	divide_horisontal(x + 1, y + 1, w - 2, h - 2)
+	msg.post(".", "acquire_input_focus")
+	msg.post("#", "generate")
+end
+
+
+function on_input(self, action_id, action)
+	if action_id == hash("generate") and action.released then
+		msg.post("#", "generate")
+	end
+end
+
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("generate") then
+		local x,y,w,h = tilemap.get_bounds("#dungeon")
+		fill(WALL, x, y, w, h)
+		divide_horisontal(x + 1, y + 1, w - 2, h - 2)
+	end
 end
