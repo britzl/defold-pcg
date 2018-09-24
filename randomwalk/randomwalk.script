@@ -18,9 +18,26 @@ local function random_orthogonal()
 	return dir.x, dir.y
 end
 
-local function dig(x, y)
-	fill(FLOOR, x, y, 1, 1)
+
+local function generate()
+	local x,y,w,h = tilemap.get_bounds("#dungeon")
+	fill(WALL, x, y, w, h)
+
+	for walkers=1,3 do
+		local tx = math.floor((x + w - 1) / 2)
+		local ty = math.floor((y + h - 1) / 2)
+		for steps=1,400 do
+			fill(FLOOR, tx, ty, 1, 1)
+			local dx, dy = random_orthogonal()
+			tx = tx + dx
+			ty = ty + dy
+			if tx < x or tx > (x + w - 1) or ty < y or ty > (y + h - 1) then
+				break
+			end
+		end
+	end
 end
+
 
 function init(self)
 	math.randomseed(os.time()) math.random()
@@ -39,21 +56,6 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("generate") then
-		local x,y,w,h = tilemap.get_bounds("#dungeon")
-		fill(WALL, x, y, w, h)
-
-		for walkers=1,3 do
-			local tx = math.floor((x + w - 1) / 2)
-			local ty = math.floor((y + h - 1) / 2)
-			for steps=1,400 do
-				fill(FLOOR, tx, ty, 1, 1)
-				local dx, dy = random_orthogonal()
-				tx = tx + dx
-				ty = ty + dy
-				if tx < x or tx > (x + w - 1) or ty < y or ty > (y + h - 1) then
-					break
-				end
-			end
-		end
+		generate()
 	end
 end
