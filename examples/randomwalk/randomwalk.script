@@ -1,0 +1,35 @@
+local randomwalk = require "pcg.algorithms.randomwalk"
+local scut = require "themes.scut"
+local pcg_map = require "pcg.map"
+local tiles = require "pcg.tiles"
+
+local LAYER_LEVEL = hash("level")
+local LAYER_SHADOWS = hash("shadow")
+
+
+function init(self)
+	math.randomseed(os.time()) math.random()
+
+	msg.post(".", "acquire_input_focus")
+	msg.post("#", "generate")
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("generate") and action.released then
+		msg.post("#", "generate")
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("generate") then
+		local map = pcg_map.create("#map", { LAYER_LEVEL, LAYER_SHADOWS })
+		map.clear(LAYER_LEVEL)
+		map.clear(LAYER_SHADOWS)
+		map.fill(LAYER_LEVEL, tiles.WALL)
+		randomwalk.walk(map, LAYER_LEVEL, tiles.FLOOR, {
+			walkers = 3,
+			steps = 400,
+		})
+		scut.apply(map, LAYER_LEVEL, LAYER_SHADOWS)
+	end
+end

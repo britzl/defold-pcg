@@ -2,7 +2,7 @@ local direction = require "pcg.direction"
 
 local M = {}
 
-function M.generate(map, layer, tile, config)
+function M.walk(map, layer, tile, config)
 	assert(map, "You must provide a map")
 	assert(layer, "You must provide a layer")
 	assert(tile, "You must provide a tile")

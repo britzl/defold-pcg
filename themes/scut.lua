@@ -63,9 +63,6 @@ function M.apply(map, layer_level, layer_shadows)
 			-- single pillar
 			elseif floor_left_right and floor_above_below then
 				map.set_tile(LEVEL, 40, x, y)
-			-- single pillar
-			elseif floor_above_below and (left == WALL or right == WALL) then
-				map.set_tile(LEVEL, 40, x, y)
 			-- left end of horizontal wall
 			elseif left == FLOOR and right == WALL and above == FLOOR and below == WALL and far_below == FLOOR then
 				map.set_tile(LEVEL, 119, x, y)

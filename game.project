@@ -1,5 +1,5 @@
 [bootstrap]
-main_collection = /randomwalk/randomwalk.collectionc
+main_collection = /examples/division/division.collectionc
 render = /orthographic/render/orthographic.renderc
 
 [script]

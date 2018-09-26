@@ -1,4 +1,4 @@
-name: "randomwalk"
+name: "division"
 instances {
   id: "camera"
   prototype: "/orthographic/camera.go"
@@ -36,8 +36,8 @@ scale_along_z: 0
 embedded_instances {
   id: "go"
   data: "components {\n"
-  "  id: \"dungeon\"\n"
-  "  component: \"/randomwalk/dungeon.tilemap\"\n"
+  "  id: \"map\"\n"
+  "  component: \"/assets/map.tilemap\"\n"
   "  position {\n"
   "    x: 0.0\n"
   "    y: 0.0\n"
@@ -51,8 +51,8 @@ embedded_instances {
   "  }\n"
   "}\n"
   "components {\n"
-  "  id: \"randomwalk\"\n"
-  "  component: \"/randomwalk/randomwalk.script\"\n"
+  "  id: \"division\"\n"
+  "  component: \"/examples/division/division.script\"\n"
   "  position {\n"
   "    x: 0.0\n"
   "    y: 0.0\n"

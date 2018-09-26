@@ -1,4 +1,4 @@
-local randomwalk = require "randomwalk.randomwalk"
+local division = require "pcg.algorithms.division"
 local scut = require "themes.scut"
 local pcg_map = require "pcg.map"
 local tiles = require "pcg.tiles"
@@ -6,13 +6,12 @@ local tiles = require "pcg.tiles"
 local LAYER_LEVEL = hash("level")
 local LAYER_SHADOWS = hash("shadow")
 
-
 function init(self)
 	math.randomseed(os.time()) math.random()
-
 	msg.post(".", "acquire_input_focus")
 	msg.post("#", "generate")
 end
+
 
 function on_input(self, action_id, action)
 	if action_id == hash("generate") and action.released then
@@ -20,15 +19,18 @@ function on_input(self, action_id, action)
 	end
 end
 
+
 function on_message(self, message_id, message, sender)
 	if message_id == hash("generate") then
-		local map = pcg_map.create("#dungeon", { LAYER_LEVEL, LAYER_SHADOWS })
+		local map = pcg_map.create("#map", { LAYER_LEVEL, LAYER_SHADOWS })
 		map.clear(LAYER_LEVEL)
 		map.clear(LAYER_SHADOWS)
 		map.fill(LAYER_LEVEL, tiles.WALL)
-		randomwalk.generate(map, hash("level"), tiles.FLOOR, {
-			walkers = 3,
-			steps = 400,
+		division.divide(map, LAYER_LEVEL, {
+			floor = tiles.FLOOR,
+			wall = tiles.WALL,
+			door = tiles.FLOOR,
+			wall_thickness = 2,
 		})
 		scut.apply(map, LAYER_LEVEL, LAYER_SHADOWS)
 	end
