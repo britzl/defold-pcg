@@ -1,4 +1,4 @@
-tile_set: "/dungeon/assets/scut.tilesource"
+tile_set: "/assets/scut.tilesource"
 layers {
   id: "level"
   z: 0.0
@@ -17,6 +17,11 @@ layers {
     h_flip: 0
     v_flip: 0
   }
+}
+layers {
+  id: "shadow"
+  z: 0.1
+  is_visible: 1
 }
 material: "/builtins/materials/tile_map.material"
 blend_mode: BLEND_MODE_ALPHA

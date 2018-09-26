@@ -1,4 +1,4 @@
-tile_set: "/dungeon/assets/scut.tilesource"
+tile_set: "/assets/scut.tilesource"
 layers {
   id: "level"
   z: 0.0

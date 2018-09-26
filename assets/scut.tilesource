@@ -1,4 +1,4 @@
-image: "/dungeon/assets/scut.png"
+image: "/assets/scut.png"
 tile_width: 8
 tile_height: 8
 tile_margin: 0
