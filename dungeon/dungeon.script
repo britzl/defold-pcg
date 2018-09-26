@@ -1,7 +1,9 @@
-local pcg = require "pcg.pcg"
-
 local function fill(tile, x, y, w, h)
-	pcg.fill("#dungeon", "level", tile, x, y, w, h)
+	for xi = x, x + w - 1 do
+		for yi = y, y + h - 1 do
+			tilemap.set_tile("#dungeon", "level", xi, yi, tile)
+		end
+	end
 end
 
 local DOOR = 40
