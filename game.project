@@ -29,3 +29,6 @@ default_texture_mag_filter = nearest
 [osx]
 bundle_identifier = com.britzl.defold.pcg
 
+[library]
+include_dirs = pcg
+
